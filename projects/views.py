@@ -54,28 +54,28 @@ def project_up(request, project_id):
         proj = get_object_or_404(HoloProject, pk__exact=project_id)
 
         """Check if the user already voted."""
-        if proj.dislikers.filter(pk__exact=request.user.pk).exists():
-                post.likers.add(request.user)
-                post.dislikers.remove(request.user)
+        if proj.downvoters.filter(pk__exact=request.user.pk).exists():
+                proj.upvoters.add(request.user)
+                proj.downvoters.remove(request.user)
                 return HttpResponse("Success")
-        elif proj.likers.filter(pk__exact=request.user.pk).exists():
+        elif proj.upvoters.filter(pk__exact=request.user.pk).exists():
                 return HttpResponse("Error")
         else:
-                proj.likers.add(request.user)
+                proj.upvoters.add(request.user)
                 return HttpResponse("Success")
 
 @login_required
 @require_POST
-def project_down(request, post_id):
-        proj = get_object_or_404(HoloProject, pk__exact=post_id)
+def project_down(request, project_id):
+        proj = get_object_or_404(HoloProject, pk__exact=project_id)
 
         """Check if the user already voted."""
-        if proj.likers.filter(pk__exact=request.user.pk).exists():
-                proj.dislikers.add(request.user)
-                proj.likers.remove(request.user)
+        if proj.upvoters.filter(pk__exact=request.user.pk).exists():
+                proj.downvoters.add(request.user)
+                proj.upvoters.remove(request.user)
                 return HttpResponse("Success")
-        elif proj.dislikers.filter(pk__exact=request.user.pk).exists():
+        elif proj.downvoters.filter(pk__exact=request.user.pk).exists():
                 return HttpResponse("Error")
         else:
-                proj.dislikers.add(request.user)
+                proj.downvoters.add(request.user)
                 return HttpResponse("Success")

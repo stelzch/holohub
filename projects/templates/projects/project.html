@@ -1,4 +1,4 @@
-<div class="project">
+<div class="project" data-id="{{ project.pk }}">
 <h2>{{ project.title }}</h2>
 	{{ project.description }}<br/>
 	
@@ -15,4 +15,6 @@
 {{ project.code }}
 	</code>
 	</pre>
+	<button class="upvote-button">Up</button>
+	<button class="downvote-button">Down</button>
 </div>

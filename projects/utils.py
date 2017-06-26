@@ -42,8 +42,8 @@ def create_project(request, form,):
 					fig.op = request.user
 					fig.title = "".join(figure.split(".")[:-1])
 					fig.file = File(figurefile)
+					fig.project = project
 					fig.save()
-					project.figures.add(fig)
 			project.save()
 	except AttributeError:
 		if project.pk is not None:
