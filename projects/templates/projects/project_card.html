@@ -1,0 +1,26 @@
+<div class="project mdl-card-wide mdl-card mdl-shadow--2dp" data-id="{{ project.pk }}">
+	<div class="mdl-card__title" style="background: url(/media/{{ project.image }}) center / cover;">
+		<h2 class="mdl-card__title-text">{{ project.title }}</h2>
+	</div>
+	<div class="mdl-card__supporting-text">
+		{{ project.description }}
+		
+	</div>
+
+	<div class="mdl-card__actions mdl-card--border">
+		<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Show</a>
+	</div>
+
+	<div class="mdl-card__menu">
+		<button class="upvote-button mdl-button mdl-button--fab mdl-button--mini-fab mdl-js-button mdl-js-ripple-effect {% if user in project.upvoters.all %}mdl-button--colored{% endif %}">
+		<i class="material-icons">keyboard_arrow_up</i>
+		</button>
+		<button class="downvote-button mdl-button mdl-button--fab mdl-button--mini-fab mdl-js-button mdl-js-ripple-effect {% if user in project.downvoters.all %}mdl-button--colored{% endif %}">
+		<i class="material-icons">keyboard_arrow_down</i>
+		</button>
+
+	</div>
+	<!--
+	<button class="upvote-button">Up</button>
+	<button class="downvote-button">Down</button>-->
+</div>
