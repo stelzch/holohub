@@ -5,3 +5,17 @@
 code {
 	font-family: "Source Code Pro";
 }
+
+.project {
+	width: 512px;
+	margin: 0 auto;
+	margin-top: 2em;
+}
+.project .mdl-card__title {
+	color: #fff;
+	height: 200px;
+}
+.project .mdl-card__menu button {
+	/*background-color: #ccc;*/
+	border-radius: 90px;
+}

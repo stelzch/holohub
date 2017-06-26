@@ -17,10 +17,12 @@ def index(request):
 	return render(request, 'projects/freshfeed.html', data)
 
 @page_template('projects/project_list_page.html')
+@login_required
 def feed(request, template='projects/feed.html', extra_context={}):
     projects = HoloProject.objects.all().order_by('-created_at')
     context = {
-        'project_list': projects, 
+        'project_list': projects,
+        'user': request.user,
     }
     if extra_context is not None:
         context.update(extra_context)
@@ -44,9 +46,6 @@ def create(request):
 	else:
 		form = ProjectForm()
 	return render(request, 'projects/create.html', {'form': form})
-
-def project(request, project_id):
-	return HttpResponse("Not implemented")
 
 @login_required
 @require_POST
@@ -79,3 +78,12 @@ def project_down(request, project_id):
         else:
                 proj.downvoters.add(request.user)
                 return HttpResponse("Success")
+
+@login_required
+def project(request, project_id):
+    proj = get_object_or_404(HoloProject, pk__exact=project_id)
+    context = {
+        'project': proj,
+        'user': request.user,
+    }
+    return render(request, 'projects/project.html', context)

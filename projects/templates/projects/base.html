@@ -3,21 +3,51 @@
 <html>
 <head>
 	<meta name="charset" content="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>{% block title %}HoloHub{% endblock %}</title>
 
 	<!-- Include stylesheets and such -->
-	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<link rel="stylesheet" href="{% static 'mdl/material.css' %}"/>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel="stylesheet" href="{% static 'highlightjs/styles/monokai.css' %}">
 	{% block stylesheets %}
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
 	{% endblock %}
 	<script src="{% static 'js/jquery-3.2.1.js' %}"></script>
 </head>
 <body>
-{% block content %}
 
+{% block mdl %}
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+	<header class="mdl-layout__header">
+		<div class="mdl-layout__header-row">
+			<!-- Page Title -->
+			<span class="mdl-layout-title">HoloHub</span>
+
+			<!-- Align right -->
+			<div class="mdl-layout-spacer"></div>
+			{% include 'projects/navigation.html' %}
+		</div>
+	</header>
+	<div class="mdl-layout__drawer">
+		<span class="mdl-layout-title">Navigation</span>
+		<!-- Navigation -->
+		{% include 'projects/navigation.html' %}
+	</div>
+	
+	<main class="mdl-layout__content">
+		{% block content %}{% endblock %}
+	</main>
+</div>
 {% endblock %}
 
+<div id="toast-error-message" class="mdl-js-snackbar mdl-snackbar">
+	<div class="mdl-snackbar__text"></div>
+	<button class="mdl-snackbar__action" type="button"></button>
+</div>
+
 {% block scripts %}
+<script src="{% static 'mdl/material.js' %}"></script>
 <script src="{% static 'highlightjs/highlight.pack.js' %}"></script>
 <script src="{% static 'js/el-pagination.js' %}"></script>
 <script>

@@ -27,7 +27,8 @@ const UPVOTE_URL = "/project/<id>/up";
 const DOWNVOTE_URL = "/project/<id>/down";
 
 $(".upvote-button").click(function(evt) {
-	var project = $(evt.target).parent(".project");
+	var project = $(evt.target).parents(".project");
+	console.log(project)
 	var projectid = $(project).data("id");
 
 	// Prepare Ajax Request
@@ -43,13 +44,15 @@ $(".upvote-button").click(function(evt) {
 	}).done(function(data) {
 		if(data == "Success") {
 			console.log("Successfully upvoted!");
+			$(project).find(".upvote-button").addClass("mdl-button--colored");
+			$(project).find(".downvote-button").removeClass("mdl-button--colored");
 		} else {
-			console.error("Could not upvote...");
+			display_error("Could not upvote");
 		}
 	});
 });
 $(".downvote-button").click(function(evt) {
-	var project = $(evt.target).parent(".project");
+	var project = $(evt.target).parents(".project");
 	var projectid = $(project).data("id");
 
 	// Prepare Ajax Request
@@ -64,9 +67,19 @@ $(".downvote-button").click(function(evt) {
 		method: 'POST'
 	}).done(function(data) {
 		if(data == "Success") {
+			console.log($(project).children(".downvote-button"));
+			$(project).find(".downvote-button").addClass("mdl-button--colored");
+			$(project).find(".upvote-button").removeClass("mdl-button--colored");
 			console.log("Successfully downvoted!");
 		} else {
-			console.error("Could not downvote...");
+			display_error("Could not downvote");
 		}
 	});
 });
+
+function display_error(msg) {
+	var data = {
+		message: msg
+	};
+	document.querySelector("#toast-error-message").MaterialSnackbar.showSnackbar(data)
+}

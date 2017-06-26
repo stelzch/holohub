@@ -31,6 +31,9 @@ class HoloProject(models.Model):
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 
+	def figures(self):
+		return Figure.objects.filter(project=self.pk)
+
 
 class Figure(models.Model):
 	title = models.CharField(max_length=255)

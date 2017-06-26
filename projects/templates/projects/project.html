@@ -1,20 +1,56 @@
-<div class="project" data-id="{{ project.pk }}">
-<h2>{{ project.title }}</h2>
-	{{ project.description }}<br/>
-	
-	It contains these figures:
-	{% for figure in project.figures.all %}
-		<img src="/media/{{ figure.file }}" height="80" />
-	{% endfor %}
-	<br>
-	this is the captured image: <img src="/media/{{ project.image }}" height="200" />
+{% extends 'projects/base.html' %}
 
-	and here comes the source code:
-	<pre>
-	<code class="python">
+{% block stylesheets %}
+<style>
+.figure {
+	margin: auto 0;
+}
+</style>
+{% endblock %}
+
+{% block mdl %}
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+	<header class="mdl-layout__header">
+		<div class="mdl-layout__header-row">
+			<span class="mdl-layout-title">HoloHub</span>
+		</div>
+		<!-- The Tabs -->
+		<div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+			<a href="#capture" class="mdl-layout__tab is-active">Capture</a>
+			<a href="#code" class="mdl-layout__tab">Code</a>
+			{% for figure in project.figures %}<a href="#figure-{{ figure.pk }}" class="mdl-layout__tab">{{ figure.title }}</a>
+			{% endfor %}
+		</div>
+	</header>
+	<div class="mdl-layout__drawer">
+		<span class="mdl-layout-title">Navigation</span>
+		{% include 'projects/navigation.html' %}
+	</div>
+
+	<main class="mdl-layout__content">
+		<section class="mdl-layout__tab-panel is-active" id="capture">
+			<div class="page-content">
+				<img class="figure" src="/media/{{ project.image }}" />
+			</div>
+		</section>
+		<section class="mdl-layout__tab-panel" id="code">
+			<div class="page-content">
+				<pre>
+					<code>
 {{ project.code }}
-	</code>
-	</pre>
-	<button class="upvote-button">Up</button>
-	<button class="downvote-button">Down</button>
+					</code>
+				</pre>
+			</div>
+		</section>
+		{% for figure in project.figures %}
+		<section class="mdl-layout__tab-panel" id="figure-{{ figure.pk }}">
+			<div class="page-content">
+				<img class="figure" src="/media/{{ figure.file }}" />
+			</div>
+		</section>
+			
+		{% endfor %}
+	</main>
+
 </div>
+{% endblock %}
