@@ -4,12 +4,6 @@ from django.contrib.auth.models import User
 def get_image_filename(instance, filename):
 	return 'uploads/figures/{}'.format(filename)
 
-
-class Figure(models.Model):
-	title = models.CharField(max_length=255)
-	op = models.ForeignKey(User, related_name='figure_op', on_delete=models.CASCADE)
-	file = models.ImageField(upload_to=get_image_filename)
-
 class HoloProject(models.Model):
 	""" A short title of the project."""
 	title = models.CharField(max_length=255)
@@ -22,9 +16,6 @@ class HoloProject(models.Model):
 
 	""" The input image (capture image)."""
 	image = models.ImageField(upload_to='uploads/captures/')
-
-	""" The output figures the code produces when running on the figures."""
-	figures = models.ManyToManyField(Figure, related_name='figure')
 
 	""" The original zip file. """
 	file = models.FileField(upload_to='uploads/projects/')
@@ -39,3 +30,9 @@ class HoloProject(models.Model):
 	""" Automatically generated timestamps."""
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
+
+
+class Figure(models.Model):
+	title = models.CharField(max_length=255)
+	project = models.ForeignKey(HoloProject, related_name='figure_project', on_delete=models.CASCADE)
+	file = models.ImageField(upload_to=get_image_filename)

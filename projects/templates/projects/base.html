@@ -8,15 +8,22 @@
 	<!-- Include stylesheets and such -->
 	<link rel="stylesheet" href="{% static 'css/style.css' %}">
 	<link rel="stylesheet" href="{% static 'highlightjs/styles/monokai.css' %}">
-	<script src="{% static 'highlightjs/highlight.pack.js' %}"></script>
-	<script>
-	// Enable syntax highlighting
-	hljs.initHighlightingOnLoad();
-	</script>
+	{% block stylesheets %}
+	{% endblock %}
+	<script src="{% static 'js/jquery-3.2.1.js' %}"></script>
 </head>
 <body>
 {% block content %}
 
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'highlightjs/highlight.pack.js' %}"></script>
+<script src="{% static 'js/el-pagination.js' %}"></script>
+<script>
+// Enable syntax highlighting
+hljs.initHighlightingOnLoad();
+</script>
 {% endblock %}
 </body>
 </html>

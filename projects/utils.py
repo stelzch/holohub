@@ -32,7 +32,7 @@ def create_project(request, form,):
 			project.title = metadata['title']
 			project.image = File(mzip.open('image.png'))
 			with mzip.open('script.py', 'r') as codefile:
-				project.code = str(codefile.read())
+				project.code = codefile.read()
 				print("Reading code: {}".format(project.code))
 			project.description = metadata['description']
 			project.save()
