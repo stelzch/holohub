@@ -1,0 +1,7 @@
+@font-face {
+	font-family: "Source Code Pro";
+	src: url("/static/fonts/SourceCodePro-Medium.ttf");
+}
+code {
+	font-family: "Source Code Pro";
+}
