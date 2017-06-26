@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 class Figure(models.Model):
 	title = models.CharField(max_length=255)
 	op = models.ForeignKey(User, related_name='figure_op')
-	file = models.ImageField(upload_to='figures/')
+	file = models.ImageField(upload_to='uploads/figures/')
 
 class HoloProject(models.Model):
 	""" A short title of the project."""
@@ -17,7 +17,7 @@ class HoloProject(models.Model):
 	code = models.TextField()
 
 	""" The input image (capture image)."""
-	image = models.ImageField(upload_to='captures/', blank=True)
+	image = models.ImageField(upload_to='uploads/captures/', blank=True)
 
 	""" The output figures the code produces when running on the figures."""
 	figures = models.ManyToManyField(Figure, related_name='figure')
