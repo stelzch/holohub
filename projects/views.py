@@ -1,7 +1,7 @@
 import zipfile
 import shutil
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from .forms import ProjectForm
 from .models import HoloProject
@@ -20,7 +20,11 @@ def create(request):
 		form = ProjectForm(request.POST, request.FILES)
 		if form.is_valid():
 			print("Form valid")
-			create_project(request, form)
+			try:
+				create_project(request, form)
+			except AttributeError:
+				raise
+				return HttpResponse('project invalid')
 			return HttpResponseRedirect('/')
 		else:
 			print(form.errors)

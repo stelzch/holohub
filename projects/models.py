@@ -1,10 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+def get_image_filename(instance, filename):
+	return 'uploads/figures/{}'.format(filename)
+
+
 class Figure(models.Model):
 	title = models.CharField(max_length=255)
-	op = models.ForeignKey(User, related_name='figure_op')
-	file = models.ImageField(upload_to='uploads/figures/')
+	op = models.ForeignKey(User, related_name='figure_op', on_delete=models.CASCADE)
+	file = models.ImageField(upload_to=get_image_filename)
 
 class HoloProject(models.Model):
 	""" A short title of the project."""
@@ -17,7 +21,7 @@ class HoloProject(models.Model):
 	code = models.TextField()
 
 	""" The input image (capture image)."""
-	image = models.ImageField(upload_to='uploads/captures/', blank=True)
+	image = models.ImageField(upload_to='uploads/captures/')
 
 	""" The output figures the code produces when running on the figures."""
 	figures = models.ManyToManyField(Figure, related_name='figure')
@@ -26,7 +30,7 @@ class HoloProject(models.Model):
 	file = models.FileField(upload_to='uploads/projects/')
 
 	""" The original poster/creator of this post. """
-	op = models.ForeignKey(User, related_name='op')
+	op = models.ForeignKey(User, related_name='op', on_delete=models.CASCADE)
 
 	""" The users which down/upvoted this post. """
 	upvoters = models.ManyToManyField(User, related_name='upvoter')
