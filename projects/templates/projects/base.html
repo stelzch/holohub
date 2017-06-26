@@ -1,8 +1,18 @@
+{% load static %}
 <!doctype html>
 <html>
 <head>
 	<meta name="charset" content="utf-8">
 	<title>{% block title %}HoloHub{% endblock %}</title>
+
+	<!-- Include stylesheets and such -->
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<link rel="stylesheet" href="{% static 'highlightjs/styles/monokai.css' %}">
+	<script src="{% static 'highlightjs/highlight.pack.js' %}"></script>
+	<script>
+	// Enable syntax highlighting
+	hljs.initHighlightingOnLoad();
+	</script>
 </head>
 <body>
 {% block content %}
