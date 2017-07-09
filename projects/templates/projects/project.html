@@ -1,6 +1,7 @@
 {% extends 'projects/base.html' %}
 
 {% block stylesheets %}
+{{ block.super }}
 <style>
 .figure {
 	margin: auto 0;
@@ -29,12 +30,12 @@
 
 	<main class="mdl-layout__content">
 		<section class="mdl-layout__tab-panel is-active" id="capture">
-			<div class="page-content">
+			<div class="page-content project-content">
 				<img class="figure" src="/media/{{ project.image }}" />
 			</div>
 		</section>
 		<section class="mdl-layout__tab-panel" id="code">
-			<div class="page-content">
+			<div class="page-content project-content">
 				<pre>
 					<code>
 {{ project.code }}
@@ -44,7 +45,7 @@
 		</section>
 		{% for figure in project.figures %}
 		<section class="mdl-layout__tab-panel" id="figure-{{ figure.pk }}">
-			<div class="page-content">
+			<div class="page-content project-content">
 				<img class="figure" src="/media/{{ figure.file }}" />
 			</div>
 		</section>

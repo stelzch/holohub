@@ -19,3 +19,12 @@ code {
 	/*background-color: #ccc;*/
 	border-radius: 90px;
 }
+.project-content > img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+.project-content code {
+	margin: 2em;
+	border-radius: 5px 5px 5px 5px;
+}
